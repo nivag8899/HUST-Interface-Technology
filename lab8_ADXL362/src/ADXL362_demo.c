@@ -114,15 +114,10 @@ int main() {
         ADXL362_READ(0x8, &xdata);
         ADXL362_READ(0x9, &ydata);
         ADXL362_READ(0xA, &zdata);
-        // ADXL362_READ(0x8, &displayData);
-        // realData = 0;
-        // for (int i = 7; i > 0; i--) {
-        //     realData|=((displayData>>i)&1) ? 1 : 0;
-        //     realData <<= 4;
-        // }
-        // realData|=((displayData)&1) ? 1 : 0;
-        // WRITE_IO(SegDig_ADDR, realData);
         realData = 0;
+        xdata -=0xFC;
+        ydata -=0xFC;
+        zdata -=0xC7; //奇怪的校准增加了
         realData |= xdata << 24;
         realData |= ydata << 12;
         realData |= zdata;
